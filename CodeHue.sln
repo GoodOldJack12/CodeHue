@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHue", "CodeHue\CodeHue.csproj", "{4D3D096F-7E0F-479B-B29D-CDA2A697C991}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHue_Debug", "CodeHue_Debug\CodeHue_Debug.csproj", "{82E7882D-A245-48D9-BB1C-26039C00CDA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D3D096F-7E0F-479B-B29D-CDA2A697C991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3D096F-7E0F-479B-B29D-CDA2A697C991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3D096F-7E0F-479B-B29D-CDA2A697C991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3D096F-7E0F-479B-B29D-CDA2A697C991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E7882D-A245-48D9-BB1C-26039C00CDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E7882D-A245-48D9-BB1C-26039C00CDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E7882D-A245-48D9-BB1C-26039C00CDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E7882D-A245-48D9-BB1C-26039C00CDA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
