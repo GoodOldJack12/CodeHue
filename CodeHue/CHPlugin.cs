@@ -75,20 +75,5 @@ namespace CodeHue
             client.Initialize(appKey);
             Console.WriteLine("Successfully connected to the Bridge.");
         }
-        
-        public async Task SendCommand(Color color)
-        {
-            var command = new LightCommand();
-            if (color == Color.Black)
-            {
-                command.TurnOff();
-            }
-            else
-            {
-                command.TurnOn().SetColor(new RGBColor(color.ToString()));
-            }
-
-            await client.SendCommandAsync(command);
-        }
     }
 }

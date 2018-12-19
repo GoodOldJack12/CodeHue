@@ -1,7 +1,11 @@
 using System.Drawing;
+using System.Threading.Tasks;
 using LyokoAPI.Events;
 using LyokoAPI.VirtualStructures;
 using LyokoAPI.VirtualStructures.Interfaces;
+using Q42.HueApi;
+using Q42.HueApi.ColorConverters;
+using Q42.HueApi.ColorConverters.Original;
 
 namespace CodeHue
 {
@@ -65,7 +69,21 @@ namespace CodeHue
                 color = Color.Black;
                 await SendCommand(color);
             }
+            
+            public async Task SendCommand(Color color)
+            {
+                var command = new LightCommand();
+                if (color == Color.Black)
+                {
+                    command.TurnOff();
+                }
+                else
+                {
+                    command.TurnOn().SetColor(new RGBColor(color.ToString()));
+                }
 
+                await client.SendCommandAsync(command);
+            }
         }
     }
 }
