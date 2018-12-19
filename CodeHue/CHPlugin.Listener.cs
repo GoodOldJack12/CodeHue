@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using LyokoAPI.Events;
 using LyokoAPI.VirtualStructures;
 using LyokoAPI.VirtualStructures.Interfaces;
@@ -23,7 +25,7 @@ namespace CodeHue
         public Listener()
         {
             _listening = false;
-            BridgeConnection();
+            BridgeConnecter.BridgeConnection(client);
         }
 
         public void StartListening()
@@ -68,39 +70,6 @@ namespace CodeHue
             Color color;
             color = Color.Black;
             await SendCommand(color);
-        }
-        
-        public async Task BridgeConnection()
-        {
-            //Finding Bridge
-            IBridgeLocator locator = new HttpBridgeLocator();
-            IEnumerable<LocatedBridge> bridgeIPs = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
-            Console.WriteLine("Bridge located.");
-
-            //Checking Application Registering
-            client = new LocalHueClient(bridgeIPs.First().IpAddress);
-            string appKey = "";
-            var appKeyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "appKey.txt");
-            Console.WriteLine(appKeyPath);
-
-            if (System.IO.File.Exists(appKeyPath))
-            {
-                appKey = System.IO.File.ReadAllText(appKeyPath);
-            }
-
-            if (appKey.Length == 0)
-            {
-                Console.WriteLine("Please press your Bridge's link button. Once done, press any key on your computer.");
-                Console.ReadKey();
-                appKey = await client.RegisterAsync("CodeHue", "Computer");
-                System.IO.File.WriteAllText(appKeyPath, appKey);
-                Console.WriteLine("Key registered.");
-            }
-
-            //Connecting To Bridge
-            client.Initialize(appKey);
-            Console.WriteLine("Successfully connected to the Bridge.");
         }
 
         public async Task SendCommand(Color color)

@@ -1,4 +1,5 @@
 ﻿using System;
+using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 
 namespace CodeHue
@@ -10,8 +11,9 @@ namespace CodeHue
 
         protected override bool OnEnable()
         {
-            Console.WriteLine("Launching CodeHue...");
-            Listener hueListener = new Listener();
+            LyokoLogger.Log("CodeHue", "Launching CodeHue...");
+            //listener here
+            return true;
         }
 
         protected override bool OnDisable()

@@ -117,6 +117,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CHPlugin.BridgeConnecter.cs" />
     <Compile Include="CHPlugin.cs" />
     <Compile Include="CHPlugin.Listener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
