@@ -13,13 +13,14 @@ namespace CodeHue
         protected override bool OnEnable()
         {
             LyokoLogger.Log("CodeHue", "Launching CodeHue...");
-            //listener here
+            SetUp();
             return true;
         }
 
         private async void SetUp()
         {
             await BridgeConnecter.BridgeConnection();
+            Listener hueListener = new Listener();
         }
 
         protected override bool OnDisable()

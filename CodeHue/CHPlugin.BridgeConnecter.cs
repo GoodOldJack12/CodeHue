@@ -17,8 +17,6 @@ namespace CodeHue
         private static ILocalHueClient _client;
         public static async Task BridgeConnection()
         {
-        
-            Console.WriteLine("Test");
             //Finding Bridge
             IBridgeLocator locator = new HttpBridgeLocator();
             IEnumerable<LocatedBridge> bridgeIPs = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
@@ -36,7 +34,7 @@ namespace CodeHue
 
             if (appKey.Length == 0)
             {
-                LyokoLogger.Log("CodeHue", "Please press your Bridge's link button. Once done, press any key on your computer.");
+                LyokoLogger.Log("CodeHue", "Please press your Bridge's link button.");
                 Timer myTimer = new Timer();
                 myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
                 myTimer.Interval = 5000;
@@ -62,7 +60,7 @@ namespace CodeHue
             }
             catch (Exception exc)
             {
-                Console.WriteLine("Button not pressed. Trying again...");
+                LyokoLogger.Log("CodeHue", "Button not pressed. Trying again...");
             }
         }
 
