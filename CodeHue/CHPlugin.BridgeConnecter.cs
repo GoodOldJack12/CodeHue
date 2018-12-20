@@ -14,7 +14,8 @@ namespace CodeHue
     public class BridgeConnecter
     {
         private static string appKey = "";
-        public static async Task BridgeConnection(ILocalHueClient client)
+        private static ILocalHueClient _client;
+        public static async Task BridgeConnection()
         {
         
             Console.WriteLine("Test");
@@ -24,7 +25,7 @@ namespace CodeHue
             LyokoLogger.Log("CodeHue","Bridge located.");
 
             //Checking Application Registering
-            client = new LocalHueClient(bridgeIPs.First().IpAddress);
+            _client = new LocalHueClient(bridgeIPs.First().IpAddress);
             var appKeyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "appKey.txt");
 
@@ -49,20 +50,25 @@ namespace CodeHue
             }
 
             //Connecting To Bridge
-            client.Initialize(appKey);
+            _client.Initialize(appKey);
             LyokoLogger.Log("CodeHue", "Successfully connected to the Bridge.");
         }
         
-        public async void DisplayTimeEvent(object source, ElapsedEventArgs e)
+        public static async void DisplayTimeEvent(object source, ElapsedEventArgs e)
         {
             try
             {
-                appKey = await client.RegisterAsync("CodeHue_Test2", "Computer");
+                appKey = await _client.RegisterAsync("CodeHue_Test2", "Computer");
             }
             catch (Exception exc)
             {
                 Console.WriteLine("Button not pressed. Trying again...");
             }
+        }
+
+        public static ILocalHueClient getClient()
+        {
+            return _client;
         }
     }
 }

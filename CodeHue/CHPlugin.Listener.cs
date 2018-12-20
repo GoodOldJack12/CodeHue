@@ -19,13 +19,11 @@ namespace CodeHue
 {
     public class Listener
     {
-        private ILocalHueClient client;
         private static bool _listening;
 
         public Listener()
         {
             _listening = false;
-            BridgeConnecter.BridgeConnection(client);
         }
 
         public void StartListening()
@@ -80,7 +78,7 @@ namespace CodeHue
             else
                 command.TurnOn().SetColor(new RGBColor(color.ToString()));
 
-            await client.SendCommandAsync(command);
+            await BridgeConnecter.getClient().SendCommandAsync(command);
         }
     }
 }
