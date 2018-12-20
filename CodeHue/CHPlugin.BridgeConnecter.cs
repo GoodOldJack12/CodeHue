@@ -17,6 +17,10 @@ namespace CodeHue
         private static ILocalHueClient _client;
         public static async Task BridgeConnection()
         {
+            //Checking Connection
+            bool check = await BridgeConnecter.getClient().CheckConnection();
+            if (check) return;
+            
             //Finding Bridge
             IBridgeLocator locator = new HttpBridgeLocator();
             IEnumerable<LocatedBridge> bridgeIPs = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
@@ -49,6 +53,9 @@ namespace CodeHue
 
             //Connecting To Bridge
             _client.Initialize(appKey);
+            var command = new LightCommand();
+            command.Alert = Alert.Once;
+            await _client.SendCommandAsync(command);
             LyokoLogger.Log("CodeHue", "Successfully connected to the Bridge.");
         }
         

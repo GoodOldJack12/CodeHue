@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Odbc;
+using System.Runtime.Remoting.Lifetime;
 using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 
@@ -9,6 +9,7 @@ namespace CodeHue
     {
         public override string Name { get; } = "CHPlugin";
         public override string Author { get; } = "Appryl";
+        public Listener hueListener;
 
         protected override bool OnEnable()
         {
@@ -20,12 +21,13 @@ namespace CodeHue
         private async void SetUp()
         {
             await BridgeConnecter.BridgeConnection();
-            Listener hueListener = new Listener();
+            hueListener = new Listener();
         }
 
         protected override bool OnDisable()
         {
-            throw new NotImplementedException();
+            hueListener.StopListening();
+            return true;
         }
 
         public override void OnGameStart(bool storyMode)
