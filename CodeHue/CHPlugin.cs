@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Odbc;
 using LyokoAPI.Events;
 using LyokoAPI.Plugin;
 
@@ -14,6 +15,11 @@ namespace CodeHue
             LyokoLogger.Log("CodeHue", "Launching CodeHue...");
             //listener here
             return true;
+        }
+
+        private async void SetUp()
+        {
+            await BridgeConnecter.BridgeConnection();
         }
 
         protected override bool OnDisable()
