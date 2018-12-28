@@ -1,8 +1,10 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHue", "CodeHue\CodeHue.csproj", "{4D3D096F-7E0F-479B-B29D-CDA2A697C991}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHue_Debug", "CodeHue_Debug\CodeHue_Debug.csproj", "{82E7882D-A245-48D9-BB1C-26039C00CDA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HueTest", "HueTest\HueTest.csproj", "{3D620DFD-4432-4CF1-B564-21F8B67A5838}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

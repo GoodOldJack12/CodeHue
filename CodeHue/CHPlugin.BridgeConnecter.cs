@@ -18,16 +18,25 @@ namespace CodeHue
         public static async Task BridgeConnection()
         {
             //Checking Connection
-            bool check = await BridgeConnecter.getClient().CheckConnection();
-            if (check) return;
+            if (_client != null) return;
             
             //Finding Bridge
             IBridgeLocator locator = new HttpBridgeLocator();
-            IEnumerable<LocatedBridge> bridgeIPs = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
-            LyokoLogger.Log("CodeHue","Bridge located.");
-
+            IEnumerable<LocatedBridge> bridgeIPs = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(10));
+            
+            var locatedBridges = bridgeIPs.ToList();
+            if (!locatedBridges.Any())
+            {
+                LyokoLogger.Log("CodeHue","No bridges found!");
+                return;
+            }
+            else
+            {
+                LyokoLogger.Log("CodeHue","Bridge located.");
+            }
+            
             //Checking Application Registering
-            _client = new LocalHueClient(bridgeIPs.First().IpAddress);
+            _client = new LocalHueClient(locatedBridges.First().IpAddress);
             var appKeyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "appKey.txt");
 
