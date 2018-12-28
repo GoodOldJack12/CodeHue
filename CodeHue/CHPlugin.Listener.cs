@@ -1,29 +1,22 @@
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Dynamic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
 using LyokoAPI.Events;
 using LyokoAPI.VirtualStructures;
 using LyokoAPI.VirtualStructures.Interfaces;
 using Q42.HueApi;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
-using Q42.HueApi.Interfaces;
-using Q42.HueApi.Models.Bridge;
 
 namespace CodeHue
 {
     public class Listener
     {
-        private static bool _listening;
+        private bool _listening;
 
         public Listener()
         {
             _listening = false;
+            StartListening();
         }
 
         public void StartListening()
@@ -40,23 +33,23 @@ namespace CodeHue
         {
             if (!_listening) return;
 
-            TowerActivationEvent.UnSubscribe(OnTowerActivation);
-            TowerDeactivationEvent.UnSubscribe(OnTowerDeactivation);
+            TowerActivationEvent.Unsubscribe(OnTowerActivation);
+            TowerDeactivationEvent.Unsubscribe(OnTowerDeactivation);
         }
 
         private async void OnTowerActivation(ITower tower)
         {
-            Color color; //color class
+            string color = "000000"; //color class
             switch (tower.Activator)
             {
                 case APIActivator.XANA:
-                    color = Color.Red;
+                    color = "e02828";
                     break;
                 case APIActivator.JEREMIE:
-                    color = Color.Green;
+                    color = "23af38";
                     break;
                 case APIActivator.HOPPER:
-                    color = Color.White;
+                    color = "ffffff";
                     break;
             }
 
@@ -65,18 +58,18 @@ namespace CodeHue
 
         private async void OnTowerDeactivation(ITower tower)
         {
-            Color color;
-            color = Color.Black;
+            string color;
+            color = "000000";
             await SendCommand(color);
         }
 
-        public async Task SendCommand(Color color)
+        public async Task SendCommand(string color)
         {
             var command = new LightCommand();
-            if (color == Color.Black)
+            if (color == "000000")
                 command.TurnOff();
             else
-                command.TurnOn().SetColor(new RGBColor(color.ToString()));
+                command.TurnOn().SetColor(new RGBColor(color));
 
             await BridgeConnecter.getClient().SendCommandAsync(command);
         }
