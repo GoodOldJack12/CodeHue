@@ -20,8 +20,15 @@ namespace CodeHue
 
         private async void SetUp()
         {
-            await BridgeConnecter.BridgeConnection();
-            hueListener = new Listener();
+            await BridgeConnecter.BridgeConnection().ConfigureAwait(false);
+            if (BridgeConnecter.Connected)
+            {
+                this.Disable();
+            }
+            else
+            {
+                hueListener = new Listener();
+            }
         }
 
         protected override bool OnDisable()

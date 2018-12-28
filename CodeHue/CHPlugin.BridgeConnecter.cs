@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Timers;
 using LyokoAPI.Events;
@@ -15,6 +16,7 @@ namespace CodeHue
     {
         private static string appKey = "";
         private static ILocalHueClient _client;
+        public static bool Connected;
         public static async Task BridgeConnection()
         {
             //Checking Connection
@@ -28,6 +30,7 @@ namespace CodeHue
             if (!locatedBridges.Any())
             {
                 LyokoLogger.Log("CodeHue","No bridges found!");
+                Connected = false;
                 return;
             }
             else
@@ -66,6 +69,7 @@ namespace CodeHue
             command.Alert = Alert.Once;
             await _client.SendCommandAsync(command);
             LyokoLogger.Log("CodeHue", "Successfully connected to the Bridge.");
+            Connected = true;
         }
         
         public static async void DisplayTimeEvent(object source, ElapsedEventArgs e)
