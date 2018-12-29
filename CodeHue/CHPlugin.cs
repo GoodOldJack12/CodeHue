@@ -23,11 +23,11 @@ namespace CodeHue
             await BridgeConnecter.BridgeConnection().ConfigureAwait(false);
             if (BridgeConnecter.Connected)
             {
-                this.Disable();
+                hueListener = new Listener();
             }
             else
             {
-                hueListener = new Listener();
+                this.Disable();
             }
         }
 
